@@ -1,6 +1,7 @@
 package com.example.demo3.controller;
 
 import com.example.demo3.entity.Account;
+import com.example.demo3.entity.CityCode;
 import com.example.demo3.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,9 @@ public class AccountController {
     public String toChuzhang(Model model){
         //获取集合数据
         List<Account> list=asi.getAccount();
+        List<CityCode> cityList=asi.getCityCode();
         model.addAttribute("accountList",list);
+        model.addAttribute("cityList",cityList);
         return "chuzhang";
     }
 }

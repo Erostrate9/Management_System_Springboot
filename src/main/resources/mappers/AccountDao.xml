@@ -13,5 +13,10 @@
             `ACCOUN_FEE` AS `fee`
         FROM `operator`.`rp_account_gather_t`;
     </select>
-
+    <select id="getCityCode" resultType="com.example.demo3.entity.CityCode">
+        SELECT
+            `CITY_CODE` AS `cityCode`,
+            `CITY_NAME` AS `cityName`
+        FROM `operator`.`rp_city_code_t`
+    </select>
 </mapper>
