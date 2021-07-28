@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo3.dao.AccountDao">
+    <select id="getAccount" resultType="com.example.demo3.entity.Account">
+        SELECT
+            `ACCOUNT_MONTH` AS `month`,
+            `CITY_CODE` AS `cityCode`,
+            `PRODUCT_CODE` AS `productCode`,
+            `ACCOUNT_TYPE_CODE` AS `typeCode`,
+            `UPDATE_TIME` AS `updateTime`,
+            `ACCOUN_FEE` AS `fee`
+        FROM `operator`.`rp_account_gather_t`;
+    </select>
+
+</mapper>
