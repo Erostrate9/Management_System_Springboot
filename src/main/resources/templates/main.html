@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+  <head>
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>eros公司电信结算系统</title>
+
+    <!-- Bootstrap -->
+<!--    <link href="../static/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<!--      <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">-->
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!--导航条开始-->
+      <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <font size="5">XXX公司电信结算系统</font>
+        </a>
+      </div>
+  
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+              aria-haspopup="true" aria-expanded="false">欢迎你，XXX<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">基本信息</a></li>
+              <li><a href="#">密码修改</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">退出</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+    <!--导航条结束-->
+    
+    <!--布局容器开始-->
+    <div class="container-fluid">
+	  	<div class="row">
+	  	  <!--菜单开始-->
+		      <div class="col-md-2">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                手工录入
+              </a>
+            </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="list-group">
+                    <a href="chuzhang.html" class="list-group-item">出账收入</a>
+                    <a href="kaxiaoshou.html" class="list-group-item">卡销售收入</a>
+                    <a href="yucunzhuan.html" class="list-group-item">预存转收入</a>
+                    <a href="wangjianjiesuan.html" class="list-group-item">网间结算收入</a>
+                    <a href="tongzhidan.html" class="list-group-item">通知单收入</a>
+              </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                数据归集
+              </a>
+            </h4>
+          </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+              <div class="list-group">
+                <a href="chuzhangshourugather.html" class="list-group-item">出账收入查询</a>
+                <a href="kaxiaoshoushourugather.html" class="list-group-item">卡销售收入查询</a>
+                <a href="yucunzhuanshourugather.html" class="list-group-item">预存转收入查询</a>
+                <a href="wangjianjiesuanshourugather.html" class="list-group-item">网间结算收入查询</a>
+                <a href="tongzhidanshourugather.html" class="list-group-item">通知单收入查询</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingThree">
+            <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                收入稽核
+              </a>
+            </h4>
+          </div>
+          <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div class="panel-body">
+              <a href="check_chuzhang.html" class="list-group-item">出账收入</a>
+              <a href="check_kaxiaoshou.html" class="list-group-item">卡销售收入</a>
+              <a href="check_yucunzhuan.html" class="list-group-item">预存转收入</a>
+              <a href="check_wangjian.html" class="list-group-item">网间收入</a>
+              <a href="check_tongzhidan.html" class="list-group-item">通知单收入</a>
+              <a href="check_message.html" class="list-group-item">我的稽核通知<span class="badge">1/0</span></a>
+			  </div>
+          </div>
+        </div>
+      </div>
+      </div>
+		  <!--菜单结束-->
+		  <div class="col-md-10"><font color="greenyellow" size="5">欢迎使用！</font></div>
+		</div>
+	</div>
+    <!--布局容器结束-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../static/js/jquery-3.2.1.min.js" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+
+  </body>
+</html>
