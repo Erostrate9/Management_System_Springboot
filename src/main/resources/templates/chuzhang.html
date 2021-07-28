@@ -189,31 +189,29 @@
 							<table class="table table-bordered">
 								<tr>
 									<th><input type="checkbox"></th>
-									<th>序号</th>
-									<th>城市</th>
-									<th>产品</th>
+									<th>月份</th>
+									<th>城市编号</th>
+									<th>产品编号</th>
 									<th>出账类型</th>
-									<th>录入月份</th>
+									<th>修改日期</th>
 									<th>录入金额</th>
-									<th>录入人</th>
-									<th colspan="2">操作</th>
+									<th>操作</th>
 								</tr>
-								<tr>
+								<tr th:each="account:${accountList}">
 									<td><input type="checkbox"></td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
-									<td>1</td>
+									<td th:text="${account.month}"></td>
+									<td th:text="${account.cityCode}"></td>
+									<td th:text="${account.productCode}"></td>
+									<td th:text="${account.typeCode}"></td>
+									<td th:text="${account.updateTime}"></td>
+									<td th:text="${account.fee}"></td>
 									<td>
-										<a href="ChuzhangUpdate.html">编辑</a>
+										<a href="#">修改</a>
+										<a href="#">删除</a>
 									</td>
-									<td>
-										<a herf="#">删除</a>
-									</td>
+
 								</tr>
+
 							</table>
 						</div>
 					</div>
