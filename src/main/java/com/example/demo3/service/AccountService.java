@@ -2,7 +2,9 @@ package com.example.demo3.service;
 
 import com.example.demo3.dao.AccountDao;
 import com.example.demo3.entity.Account;
+import com.example.demo3.entity.AccountType;
 import com.example.demo3.entity.CityCode;
+import com.example.demo3.entity.ProductCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,4 +32,6 @@ public class AccountService {
     public List<CityCode> getCityCode(){
         return ada.getCityCode();
     }
+    public List<ProductCode> getProductCode(){return ada.getProductCode();}
+    public List<AccountType> getAccountType(){return ada.getAccountType();}
 }

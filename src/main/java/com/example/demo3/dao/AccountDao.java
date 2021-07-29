@@ -1,7 +1,9 @@
 package com.example.demo3.dao;
 
 import com.example.demo3.entity.Account;
+import com.example.demo3.entity.AccountType;
 import com.example.demo3.entity.CityCode;
+import com.example.demo3.entity.ProductCode;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +17,6 @@ public interface AccountDao {
     // 多个对象放到集合中，把它返回
     public List<Account> getAccount();
     public List<CityCode> getCityCode();
+    public List<ProductCode> getProductCode();
+    public List<AccountType> getAccountType();
 }

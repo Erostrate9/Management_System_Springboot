@@ -19,4 +19,22 @@
             `CITY_NAME` AS `cityName`
         FROM `operator`.`rp_city_code_t`
     </select>
+    <select id="getAccountType" resultType="com.example.demo3.entity.AccountType">
+        SELECT
+            `ACCOUNT_TYPE_CODE` AS `accountTypeCode`,
+            `ACCOUNT_TYPE_NAME` AS `accountTypeName`
+        FROM `operator`.`rp_account_type_code_t`;
+    </select>
+    <select id="getProductCode" resultType="com.example.demo3.entity.ProductCode">
+        SELECT
+            `PRODUCT_CODE` AS `productCode`,
+            `PRODUCT_NAME` AS `productName`,
+            `USE_FLAG` AS `useFlag`,
+            `USE_ACCOUNT` AS `useAccount`,
+            `USE_CARD_SALE` AS `cardSale`,
+            `USE_BALANCE` AS `useBalance`,
+            `USE_PRE_FEE` AS `usePreFee`,
+            `USE_BUSINESS_FEE` AS `useBusinessFee`
+        FROM `operator`.`rp_product_code_t`;
+    </select>
 </mapper>
