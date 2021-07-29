@@ -54,7 +54,14 @@ public class AccountController {
     @PostMapping("toChuzhang")
     public String queryChuzhang(Model model,Account account){
         //获取集合数据
-
+        List<Account> list=asi.getAccount(account);
+        List<CityCode> cityList=asi.getCityCode();
+        List<ProductCode> productCodeList=asi.getProductCode();
+        List<AccountType> accountTypeList=asi.getAccountType();
+        model.addAttribute("accountList",list);
+        model.addAttribute("cityList",cityList);
+        model.addAttribute("productCodeList",productCodeList);
+        model.addAttribute("accountTypeList",accountTypeList);
         return "chuzhang";
     }
 }
