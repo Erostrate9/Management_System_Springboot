@@ -68,17 +68,35 @@ public class AccountController {
     }
 
     @GetMapping("toChuzhangAdd")
-    public String toChuzhangAdd(Model model,Account account){
-        //带一个空Account对象走
-        model.addAttribute("account",account==null?new Account():account);
-
+    public String toChuzhangAdd(String id,Model model,Account account){
+        if (id==null||"".equals(id)){
+            //添加
+            //带一个空Account对象走
+            model.addAttribute("account",account==null?new Account():account);
+        }else{
+            //修改
+            model.addAttribute("account",asi.getAccountById(id));
+        }
+        //获取集合数据
+        List<CityCode> cityList=asi.getCityCode();
+        List<ProductCode> productCodeList=asi.getProductCode();
+        List<AccountType> accountTypeList=asi.getAccountType();
+        model.addAttribute("cityList",cityList);
+        model.addAttribute("productCodeList",productCodeList);
+        model.addAttribute("accountTypeList",accountTypeList);
         return "ChuzhangAdd";
     }
     @PostMapping("toChuzhangAdd")
     public void toChuzhangAdd1(Model model, Account account, HttpServletResponse response){
-        int finishedInsertNum = asi.insertAccount(account);
-        System.out.println(finishedInsertNum);
-        //当插入成功后，跳转到本controller的获取Account的方法中
+        if (account.getId()==null|| "".equals(account.getId())){
+            //添加
+            int finishedInsertNum = asi.insertAccount(account);
+            System.out.println(finishedInsertNum);
+        }else{
+            int finishedInsertNum = asi.updateAccount(account);
+            System.out.println(finishedInsertNum);
+        }
+        //当插入或修改成功后，跳转到本controller的获取Account的方法中
         //重定向
         try {
             response.sendRedirect("/account/toChuzhang");
@@ -87,4 +105,5 @@ public class AccountController {
             System.out.println("重定向失败");
         }
     }
+
 }

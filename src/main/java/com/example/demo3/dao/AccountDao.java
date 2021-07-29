@@ -22,5 +22,8 @@ public interface AccountDao {
 
     //插入
     public int insertAccount(Account account);
+    //根据id查询一个Account
+    public Account getAccountById(String id);
+    public int updateAccount(Account account);
 }
 

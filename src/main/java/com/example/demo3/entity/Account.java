@@ -3,6 +3,15 @@ package com.example.demo3.entity;
 import java.util.Date;
 
 public class Account {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    private Integer id;
     private String month;
     private String cityCode;
     private String productCode;

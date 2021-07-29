@@ -5,6 +5,7 @@
 <mapper namespace="com.example.demo3.dao.AccountDao">
     <select id="getAccount" resultType="com.example.demo3.entity.Account" parameterType="com.example.demo3.entity.Account">
         SELECT
+            `id`,
             `ACCOUNT_MONTH` AS `month`,
             `CITY_CODE` AS `cityCode`,
             `PRODUCT_CODE` AS `productCode`,
@@ -51,8 +52,30 @@
             `USE_BUSINESS_FEE` AS `useBusinessFee`
         FROM `operator`.`rp_product_code_t`;
     </select>
+    <select id="getAccountById" resultType="com.example.demo3.entity.Account">
+        SELECT
+            `id`,
+            `ACCOUNT_MONTH` AS `month`,
+            `CITY_CODE` AS `cityCode`,
+            `PRODUCT_CODE` AS `productCode`,
+            `ACCOUNT_TYPE_CODE` AS `typeCode`,
+            `UPDATE_TIME` AS `updateTime`,
+            `ACCOUN_FEE` AS `fee`
+        FROM rp_account_gather_t
+        WHERE id=#{id}
+    </select>
     <insert id="insertAccount" parameterType="com.example.demo3.entity.Account">
         INSERT INTO rp_account_gather_t(ACCOUNT_MONTH,CITY_CODE,PRODUCT_CODE,ACCOUNT_TYPE_CODE,UPDATE_TIME,ACCOUN_FEE)
         VALUES(#{month},#{cityCode},#{productCode},#{typeCode},NOW(),#{fee})
     </insert>
+    <update id="updateAccount" parameterType="com.example.demo3.entity.Account">
+        UPDATE `rp_account_gather_t` SET
+             `ACCOUNT_MONTH`=#{month},
+             `CITY_CODE`=#{cityCode},
+             `PRODUCT_CODE`=#{productCode},
+             `ACCOUNT_TYPE_CODE`=#{typeCode},
+             `UPDATE_TIME`=NOW(),
+             `ACCOUN_FEE`=#{fee}
+        WHERE id=#{id};
+    </update>
 </mapper>
