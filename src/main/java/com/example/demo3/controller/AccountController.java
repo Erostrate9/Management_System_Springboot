@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -68,7 +69,7 @@ public class AccountController {
     }
 
     @GetMapping("toChuzhangAdd")
-    public String toChuzhangAdd(String id,Model model,Account account){
+    public String toChuzhangAdd(Integer id, Model model, Account account){
         if (id==null||"".equals(id)){
             //添加
             //带一个空Account对象走
@@ -88,13 +89,14 @@ public class AccountController {
     }
     @PostMapping("toChuzhangAdd")
     public void toChuzhangAdd1(Model model, Account account, HttpServletResponse response){
+        System.out.println("account.id:"+account.getId());
         if (account.getId()==null|| "".equals(account.getId())){
             //添加
             int finishedInsertNum = asi.insertAccount(account);
-            System.out.println(finishedInsertNum);
+            System.out.println("Insert:"+finishedInsertNum);
         }else{
             int finishedInsertNum = asi.updateAccount(account);
-            System.out.println(finishedInsertNum);
+            System.out.println("update:"+finishedInsertNum);
         }
         //当插入或修改成功后，跳转到本controller的获取Account的方法中
         //重定向

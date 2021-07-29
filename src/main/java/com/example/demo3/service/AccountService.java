@@ -35,6 +35,6 @@ public class AccountService {
     public List<ProductCode> getProductCode(){return ada.getProductCode();}
     public List<AccountType> getAccountType(){return ada.getAccountType();}
     public int insertAccount(Account account){return ada.insertAccount(account);}
-    public Account getAccountById(String id){return ada.getAccountById(id);}
+    public Account getAccountById(Integer id){return ada.getAccountById(id);}
     public int updateAccount(Account account){return ada.updateAccount(account);}
 }

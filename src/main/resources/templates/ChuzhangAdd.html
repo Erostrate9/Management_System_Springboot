@@ -20,6 +20,7 @@
     <form th:object="${account}" method="post" th:action="@{/account/toChuzhangAdd}" action="/account/toChuzhangAdd">
 
         <div class="form-group">
+            <input type="hidden" th:field="*{id}"/>
             <label for="cityCode">城市：</label>
             <select name="cityCode" th:field="*{cityCode}" class="form-control" id="cityCode">
 <!--                <option value="000">江西本部</option>-->
