@@ -51,4 +51,8 @@
             `USE_BUSINESS_FEE` AS `useBusinessFee`
         FROM `operator`.`rp_product_code_t`;
     </select>
+    <insert id="insertAccount" parameterType="com.example.demo3.entity.Account">
+        INSERT INTO rp_account_gather_t(ACCOUNT_MONTH,CITY_CODE,PRODUCT_CODE,ACCOUNT_TYPE_CODE,UPDATE_TIME,ACCOUN_FEE)
+        VALUES(#{month},#{cityCode},#{productCode},#{typeCode},NOW(),#{fee})
+    </insert>
 </mapper>

@@ -19,4 +19,8 @@ public interface AccountDao {
     public List<CityCode> getCityCode();
     public List<ProductCode> getProductCode();
     public List<AccountType> getAccountType();
+
+    //插入
+    public int insertAccount(Account account);
 }
+

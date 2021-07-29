@@ -34,4 +34,5 @@ public class AccountService {
     }
     public List<ProductCode> getProductCode(){return ada.getProductCode();}
     public List<AccountType> getAccountType(){return ada.getAccountType();}
+    public int insertAccount(Account account){return ada.insertAccount(account);}
 }

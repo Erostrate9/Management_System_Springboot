@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -63,5 +65,26 @@ public class AccountController {
         model.addAttribute("productCodeList",productCodeList);
         model.addAttribute("accountTypeList",accountTypeList);
         return "chuzhang";
+    }
+
+    @GetMapping("toChuzhangAdd")
+    public String toChuzhangAdd(Model model,Account account){
+        //带一个空Account对象走
+        model.addAttribute("account",account==null?new Account():account);
+
+        return "ChuzhangAdd";
+    }
+    @PostMapping("toChuzhangAdd")
+    public void toChuzhangAdd1(Model model, Account account, HttpServletResponse response){
+        int finishedInsertNum = asi.insertAccount(account);
+        System.out.println(finishedInsertNum);
+        //当插入成功后，跳转到本controller的获取Account的方法中
+        //重定向
+        try {
+            response.sendRedirect("/account/toChuzhang");
+        }catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("重定向失败");
+        }
     }
 }
