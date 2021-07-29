@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -35,9 +36,9 @@ public class AccountController {
     public String tomain(){return "main";}
 
     @GetMapping("toChuzhang")
-    public String toChuzhang(Model model){
+    public String toChuzhang(Model model,Account account){
         //获取集合数据
-        List<Account> list=asi.getAccount();
+        List<Account> list=asi.getAccount(account);
         List<CityCode> cityList=asi.getCityCode();
         List<ProductCode> productCodeList=asi.getProductCode();
         List<AccountType> accountTypeList=asi.getAccountType();
@@ -45,6 +46,15 @@ public class AccountController {
         model.addAttribute("cityList",cityList);
         model.addAttribute("productCodeList",productCodeList);
         model.addAttribute("accountTypeList",accountTypeList);
+        //往model中传入一个空的Account对象
+        model.addAttribute("account",account==null?new Account():account);
+        return "chuzhang";
+    }
+
+    @PostMapping("toChuzhang")
+    public String queryChuzhang(Model model,Account account){
+        //获取集合数据
+
         return "chuzhang";
     }
 }

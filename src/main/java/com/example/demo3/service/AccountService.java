@@ -26,8 +26,8 @@ public class AccountService {
     public void setAda(AccountDao ada) {
         this.ada = ada;
     }
-    public List<Account> getAccount(){
-        return ada.getAccount();
+    public List<Account> getAccount(Account account){
+        return ada.getAccount(account);
     }
     public List<CityCode> getCityCode(){
         return ada.getCityCode();

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo3.dao.AccountDao">
-    <select id="getAccount" resultType="com.example.demo3.entity.Account">
+    <select id="getAccount" resultType="com.example.demo3.entity.Account" parameterType="com.example.demo3.entity.Account">
         SELECT
             `ACCOUNT_MONTH` AS `month`,
             `CITY_CODE` AS `cityCode`,
@@ -11,7 +11,21 @@
             `ACCOUNT_TYPE_CODE` AS `typeCode`,
             `UPDATE_TIME` AS `updateTime`,
             `ACCOUN_FEE` AS `fee`
-        FROM `operator`.`rp_account_gather_t`;
+        FROM `operator`.`rp_account_gather_t`
+        <where>
+            <if test="cityCode != null and cityCode !=''">
+                and CITY_CODE=#{cityCode}
+            </if>
+            <if test="productCode != null and productCode !=''">
+                and PRODUCT_CODE=#{productCode}
+            </if>
+            <if test="typeCode != null and typeCode !=''">
+                and ACCOUNT_TYPE_CODE=#{typeCode}
+            </if>
+            <if test="month != null and month !=''">
+                and ACCOUNT_MONTH=#{month}
+            </if>
+        </where>
     </select>
     <select id="getCityCode" resultType="com.example.demo3.entity.CityCode">
         SELECT

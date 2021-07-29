@@ -127,11 +127,11 @@
 					    <h3 class="panel-title">出账收入查询（城市编码，产品编码，出账类型编码，录入月份）</h3>
 					  </div>
 					  <div class="panel-body">
-					    <form class="form-horizontal">
+					    <form class="form-horizontal" th:object="${account}" method="post" th:action="@{/account/toChuzhang}" action="/account/toChuzhang">
 							  <div class="form-group">
 							    <label for="inputEmail3" class="col-sm-2 control-label">城市</label>
 							    <div class="col-sm-4">
-							      <select class="form-control">
+							      <select class="form-control" th:field="*{cityCode}">
 									  <option value="" >请选择城市</option>
 									  <option th:each="cityCode:${cityList}" th:text="${cityCode.cityName}" th:value="${cityCode.cityCode}">
 									  </option>
@@ -139,7 +139,7 @@
 							    </div>
 							    <label for="inputPassword3" class="col-sm-2 control-label">产品</label>
 							    <div class="col-sm-4">
-							      <select class="form-control">
+							      <select class="form-control" th:field="*{productCode}">
 							      	<option value="">请选择产品</option>
 									  <option th:each="productCode:${productCodeList}" th:text="${productCode.productName}" th:value="${productCode.productCode}">
 									  </option>
@@ -149,7 +149,7 @@
 							  <div class="form-group">
 							    <label for="inputEmail3" class="col-sm-2 control-label">出账类型</label>
 							    <div class="col-sm-4">
-							      <select class="form-control">
+							      <select class="form-control" th:field="*{typeCode}">
 							      	<option value="">请选择类型</option>
 									  <option th:each="accountType:${accountTypeList}" th:text="${accountType.accountTypeName}" th:value="${accountType.accountTypeCode}">
 									  </option>
@@ -157,7 +157,7 @@
 							    </div>
 							    <label for="inputPassword3" class="col-sm-2 control-label">月份</label>
 							    <div class="col-sm-4">
-							      <input type="date" class="form-control" placeholder="date input">
+							      <input type="text" th:field="*{month}" class="form-control" placeholder="date input">
 							    </div>
 							  </div>
 							  <div class="form-group">
@@ -169,7 +169,7 @@
 								  <button type="submit" class="btn btn-default">批量删除</button>
 							    </div>
 							  </div>
-							</form>
+						</form>
 					  </div>
 					</div>
 					<div class="panel panel-default">
