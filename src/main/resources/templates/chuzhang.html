@@ -168,7 +168,7 @@
 							      <button type="button" class="btn btn-default"><a href="/account/toChuzhangAdd" th:href="@{/account/toChuzhangAdd}">录入</a></button>&nbsp;&nbsp;
 								  <button type="button" onclick="import1()" class="btn btn-default">导入</button>&nbsp;&nbsp;
 								  <button type="button" onclick="download()" class="btn btn-default">下载模板</button>&nbsp;&nbsp;
-								  <button type="submit" class="btn btn-default">批量删除</button>
+								  <button type="button" onclick="deleteBatch()" class="btn btn-default">批量删除</button>
 							    </div>
 							  </div>
 						</form>
@@ -181,7 +181,7 @@
 						<div class="panel-body">
 							<table class="table table-bordered">
 								<tr>
-									<th><input type="checkbox" id="cAll" onclick="checkAll()"></th>
+									<th><input type="checkbox" id="cAll" name="checkID" onclick="checkAll()"></th>
 									<th>ID</th>
 									<th>月份</th>
 									<th>城市编号</th>
@@ -192,7 +192,7 @@
 									<th>操作</th>
 								</tr>
 								<tr th:each="account:${accountList}">
-									<td><input type="checkbox" class="res"></td>
+									<td><input type="checkbox" class="res" name="checkID" th:value="${account.id}"></td>
 									<td th:text="${account.id}"></td>
 									<td th:text="${account.month}"></td>
 									<td th:text="${account.cityCode}"></td>
@@ -255,6 +255,37 @@
 		}
 		function import1(){
 			window.location.href="http://localhost:8888/account/import1";
+		}
+		function deleteBatch() {
+			var ids = new Array();
+			var checkeds = document.getElementsByName("checkID");
+			for (var i = 0; i<checkeds.length; i++) {
+				if (checkeds[i].checked) {
+					ids.push(checkeds[i].value);
+				}
+			}
+			if (ids.length == 0) {
+				alert("请选择！");
+			}
+			$.ajax({
+				url: '/account/deleteBatch',
+				type: 'POST',
+				dataType: "text",
+				async: true,
+				data: {
+					'ids': ids
+				},
+				success: function (result) {
+					if (result == "success") {
+						location.reload();
+					} else {
+						alert("批量删除发生错误！");
+					}
+				},
+				error: function () {
+					alert("请求发生错误！");
+				}
+			});
 		}
 	</script>
   </body>

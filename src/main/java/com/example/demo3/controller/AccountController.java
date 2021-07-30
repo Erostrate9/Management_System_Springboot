@@ -9,10 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
@@ -249,6 +246,20 @@ public class AccountController {
         }
         //重定向
         return "redirect:/account/toChuzhang";
+    }
+    @ResponseBody
+    @PostMapping("deleteBatch")
+    public String deleteBatch(@RequestParam("ids[]")Integer[]ids){
+        int res=0;
+        for (Integer id:ids) {
+            res+=asi.deleteAccount(id);
+        }
+        if (res>0){
+            return "success";
+        }else{
+            return "failed";
+        }
+
     }
 
 
