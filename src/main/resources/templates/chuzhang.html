@@ -166,7 +166,7 @@
 							    <div class="col-sm-offset-2 col-sm-10">
 							      <button type="submit" class="btn btn-default">查询</button>&nbsp;&nbsp;
 							      <button type="button" class="btn btn-default"><a href="/account/toChuzhangAdd" th:href="@{/account/toChuzhangAdd}">录入</a></button>&nbsp;&nbsp;
-								  <button type="submit" class="btn btn-default">导入</button>&nbsp;&nbsp;
+								  <button type="button" onclick="import1()" class="btn btn-default">导入</button>&nbsp;&nbsp;
 								  <button type="button" onclick="download()" class="btn btn-default">下载模板</button>&nbsp;&nbsp;
 								  <button type="submit" class="btn btn-default">批量删除</button>
 							    </div>
@@ -252,6 +252,9 @@
 		}
 		function download(){
 			window.location.href="http://localhost:8888/account/download";
+		}
+		function import1(){
+			window.location.href="http://localhost:8888/account/import1";
 		}
 	</script>
   </body>

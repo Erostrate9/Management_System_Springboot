@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -196,5 +198,59 @@ public class AccountController {
             e1.printStackTrace();
         }
     }
+    //    上传模板
+    @GetMapping("import1")
+    public String import1(){
+        return "ChuzhangImport";
+    }
+    /**
+     * 导入文件
+     * @author wys
+     * @param file
+     * @return
+     */
+    @PostMapping("/upload")
+    public String uploadFile(@RequestParam("uploadFile") MultipartFile file, Model model, HttpServletResponse response) {
+        if (file == null || file.getSize() == 0) {
+            model.addAttribute("error_msg", "文件不能为空");
+            return "viewTemplates/error";//pass
+        }
+
+        //获取文件名称
+        String fileName = file.getOriginalFilename();
+
+        //判断文件类型
+        String[] str = fileName.split("\\.");
+        if (str.length != 2 || !str[1].equals("xlsx")) {
+            model.addAttribute("error_msg", "文件格式不正确");
+            return "viewTemplates/error";
+        }
+        //转换成本地文件
+        File excel = null;
+        try {
+            excel = File.createTempFile(str[0], str[1]);
+            file.transferTo(excel);
+        } catch (IOException e) {
+            model.addAttribute("error_msg", "转换文件发生错误！");
+            return "viewTemplates/error";
+        }
+        try {
+            List<Account> list = asi.parseExcel(excel);
+            System.out.println(list.size());
+            System.out.println(list.get(0).getCityCode());
+            if (list == null || list.size() == 0) {
+                model.addAttribute("error_msg", "文件内容为空！");
+                return "viewTemplates/error";
+            }
+            asi.batchInsert(list);
+        } catch (Exception e) {
+            model.addAttribute("error_msg", "导入文件发生错误！");
+            return "viewTemplates/error";
+        }
+        //重定向
+        return "redirect:/account/toChuzhang";
+    }
+
+
 
 }
