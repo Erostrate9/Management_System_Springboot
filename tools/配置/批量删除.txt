@@ -1,0 +1,49 @@
+ function selectAll() {
+	    	var checkeds=document.getElementsByName("checkID");
+	    	var selectAll=document.getElementById("selectAll");
+	    	if(selectAll.checked){
+	    		for(var i=0;i<checkeds.length;i++){
+	        		if(!checkeds[i].checked){
+	        			checkeds[i].checked=true;	 
+	        		}	
+	        	}
+	    	}else{
+	    		for(var i=0;i<checkeds.length;i++){
+	        		if(checkeds[i].checked){
+	        			checkeds[i].checked=false;	 
+	        		}	
+	        	}	
+	    	}
+	    }
+	    
+	    function deleteBatch() {
+	 	   var ids = new Array();
+	 	   var checkeds = document.getElementsByName("checkID");
+	 	   for (var i = 0; i<checkeds.length; i++) {
+	 		   if (checkeds[i].checked) {
+	 			   ids.push(checkeds[i].value);
+	 		   }
+	 	   }
+	 	   if (ids.length == 0) {
+	 		   alert("请选择！");
+	 	   }
+	 	   $.ajax({
+	 		    url: '/account/deleteBatch',
+	 		    type: 'POST',
+	 		    dataType: "text",
+	 		    async: true,
+	 		    data: {
+	 		        'ids': ids
+	 		    },
+	 		    success: function (result) {
+	 		    	 if (result == "success") {
+	 		        	location.reload();
+	 		        } else {
+	 		        	alert("批量删除发生错误！");
+	 		        } 
+	 		    },
+	 		    error: function () {
+	 		    	alert("请求发生错误！");
+	 		    }
+	 		});
+	    }

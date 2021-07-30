@@ -1,0 +1,38 @@
+/**
+	 *  下载模板
+	 * @return
+	 */
+	@GetMapping("/download")
+	public void downloadTemplate(HttpServletResponse response) {
+		XSSFWorkbook workbook = ase.getTemplate();
+		//设置下载时的响应头
+        try {
+			response.setHeader("content-disposition","attachment;fileName="+ URLEncoder.encode("导入模板","UTF-8")+".xlsx");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+        //通过响应流响应即可
+        ServletOutputStream outputStream;
+		try {
+			outputStream = response.getOutputStream();
+			workbook.write(outputStream);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+
+
+
+
+public XSSFWorkbook getTemplate() {
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet();
+		XSSFRow row = sheet.createRow(0);
+		row.createCell(0).setCellValue("录入月份");
+		row.createCell(1).setCellValue("城市编码");
+		row.createCell(2).setCellValue("产品编码");
+		row.createCell(3).setCellValue("出账收入类型编码");
+		row.createCell(4).setCellValue("录入金额");
+		return workbook;
+	}

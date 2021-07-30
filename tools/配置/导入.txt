@@ -1,0 +1,156 @@
+<form class="form-horizontal" th:action="@{/account/upload}" method="post" enctype="multipart/form-data">
+						  <div class="form-group">
+						  	<label for="productname" class="col-sm-2 control-label">部门</label>
+						  	<div class="col-sm-6">
+						  		<select class="form-control">
+									  <option>请选择...</option>
+									  <option>部门一</option>
+									  <option>部门二</option>
+									  <option>部门三</option>
+									  <option>部门四</option>
+									</select>
+						  	</div>
+						  </div>
+						  <div class="form-group">
+						    <label for="productname" class="col-sm-2 control-label">维护文件</label>
+						    <div class="col-sm-6">
+						      <input type="file" name="uploadFile" id="txt_file" class="file" data-show-preview="false" data-show-upload="false"/>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-offset-2 col-sm-10">
+						      <button type="submit" class="btn btn-primary">提交</button>
+						      <button type="reset" class="btn btn-default">取消</button>
+						    </div>
+						  </div>
+						</form>
+
+
+
+
+
+
+
+
+/**
+	 * 导入文件
+	 * @author wys
+	 * @param file
+	 * @return
+	 */
+	@PostMapping("/upload")
+	public String uploadFile(@RequestParam("uploadFile")MultipartFile file, Model model, HttpServletResponse response) {
+		if (file == null || file.getSize() == 0) {
+			model.addAttribute("error_msg", "文件不能为空");
+			return "viewTemplates/error";
+		}
+		
+		//获取文件名称
+		String fileName = file.getOriginalFilename();
+		
+		//判断文件类型
+		String[] str = fileName.split("\\.");
+		if (str.length != 2 || !str[1].equals("xlsx")) {
+			model.addAttribute("error_msg", "文件格式不正确");
+			return "viewTemplates/error";
+		}
+		//转换成本地文件
+		File excel = null;
+		try {
+			excel = File.createTempFile(str[0], str[1]);
+			file.transferTo(excel);
+		} catch (IOException e) {
+			model.addAttribute("error_msg", "转换文件发生错误！");
+			return "viewTemplates/error";
+		}
+		try {
+			List<Account> list = ase.parseExcel(excel);
+			System.out.println(list.size());
+			System.out.println(list.get(0).getCityCode());
+			if (list == null || list.size() == 0) {
+				model.addAttribute("error_msg", "文件内容为空！");
+				return "viewTemplates/error";
+			}
+			ase.batchInsert(list);
+		} catch (Exception e) {
+			model.addAttribute("error_msg", "导入文件发生错误！");
+			return "viewTemplates/error";
+		}
+		return "redirect:/account/tochuzhang";
+	}
+	
+
+
+
+
+
+
+/**
+	  *   解析Excel
+	 * @param file
+	 * @return
+	 */
+	@SuppressWarnings("resource")
+	public List<Account> parseExcel(File file) {
+		
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			return null;
+		}
+		XSSFWorkbook workbook = null;
+		try {
+			workbook = new XSSFWorkbook(fis);
+		} catch (IOException e) {
+			return null;
+		}
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		List<Account> list = new ArrayList<Account>();
+		for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+			XSSFRow row = sheet.getRow(i);
+			Account si = new Account(); 
+			for (int j = 0; j < row.getLastCellNum(); j++) {
+				XSSFCell cell = row.getCell(j);
+				switch(j) {
+					case 0: 
+						Double month = cell.getNumericCellValue();
+						double dmonth=month.doubleValue();
+					    int idmonth=(int)dmonth;
+					    String sidmonth=idmonth+"";
+					    
+						si.setMonth(sidmonth);
+						break;
+					case 1: 
+						Double cityCode = cell.getNumericCellValue();
+						double dcityCode=cityCode.doubleValue();
+					    int icityCode=(int)dcityCode;
+					    String scityCode=icityCode+"";
+						si.setCityCode(scityCode);
+						break;
+					case 2: 
+						Double productCode = cell.getNumericCellValue();
+						double dproductCode=productCode.doubleValue();
+					    int iproductCode=(int)dproductCode;
+					    String sproductCode=iproductCode+"";
+						si.setProductCode(sproductCode);
+						break;
+					case 3: 
+						Double accoundTypeCode = cell.getNumericCellValue();
+						double daccoundTypeCode=accoundTypeCode.doubleValue();
+					    int iaccoundTypeCode=(int)daccoundTypeCode;
+					    String saccoundTypeCode=iaccoundTypeCode+"";
+						si.setAccoundTypeCode(saccoundTypeCode);
+						break;
+					case 4: 
+						Double AccounFee = cell.getNumericCellValue();
+						System.out.println(AccounFee);
+						si.setAccounFee(AccounFee);
+						break;
+					default : return null;
+				}
+			}
+			list.add(si);
+		}
+		return list;
+	}
