@@ -5,6 +5,7 @@ import com.example.demo3.entity.AccountType;
 import com.example.demo3.entity.CityCode;
 import com.example.demo3.entity.ProductCode;
 import com.example.demo3.service.AccountService;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Controller
@@ -109,7 +113,7 @@ public class AccountController {
     }
     //删除
     @GetMapping("toChuzhangDelete")
-    public void toChuzhangDelete(Integer id,Model model,HttpServletResponse response){
+    public void toChuzhangDelete(Integer id,HttpServletResponse response){
         System.out.println("account.id:"+id);
         if (id==null){
             System.out.println("id doesn't exist");
@@ -167,6 +171,29 @@ public class AccountController {
         }catch (IOException e) {
             e.printStackTrace();
             System.out.println("重定向失败");
+        }
+    }
+
+    /**
+     *  下载模板
+     * @return
+     */
+    @GetMapping("/download")
+    public void downloadTemplate(HttpServletResponse response) {
+        XSSFWorkbook workbook = asi.getTemplate();
+        //设置下载时的响应头
+        try {
+            response.setHeader("content-disposition","attachment;fileName="+ URLEncoder.encode("导入模板","UTF-8")+".xlsx");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        //通过响应流响应即可
+        ServletOutputStream outputStream;
+        try {
+            outputStream = response.getOutputStream();
+            workbook.write(outputStream);
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
     }
 

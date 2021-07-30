@@ -167,7 +167,7 @@
 							      <button type="submit" class="btn btn-default">查询</button>&nbsp;&nbsp;
 							      <button type="button" class="btn btn-default"><a href="/account/toChuzhangAdd" th:href="@{/account/toChuzhangAdd}">录入</a></button>&nbsp;&nbsp;
 								  <button type="submit" class="btn btn-default">导入</button>&nbsp;&nbsp;
-								  <button type="submit" class="btn btn-default">导出</button>&nbsp;&nbsp;
+								  <button type="button" onclick="download()" class="btn btn-default">下载模板</button>&nbsp;&nbsp;
 								  <button type="submit" class="btn btn-default">批量删除</button>
 							    </div>
 							  </div>
@@ -249,6 +249,9 @@
 				}
 				// btn.checked=false;
 			}
+		}
+		function download(){
+			window.location.href="http://localhost:8888/account/download";
 		}
 	</script>
   </body>

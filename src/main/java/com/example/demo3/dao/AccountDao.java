@@ -4,6 +4,7 @@ import com.example.demo3.entity.Account;
 import com.example.demo3.entity.AccountType;
 import com.example.demo3.entity.CityCode;
 import com.example.demo3.entity.ProductCode;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +26,7 @@ public interface AccountDao {
     //根据id查询一个Account
     public Account getAccountById(Integer id);
     public int updateAccount(Account account);
+    @Delete("DELETE FROM `rp_account_gather_t` WHERE `id` = #{id}")
     public int deleteAccount(Integer id);
 }
 

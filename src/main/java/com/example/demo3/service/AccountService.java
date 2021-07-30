@@ -5,6 +5,9 @@ import com.example.demo3.entity.Account;
 import com.example.demo3.entity.AccountType;
 import com.example.demo3.entity.CityCode;
 import com.example.demo3.entity.ProductCode;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,4 +41,15 @@ public class AccountService {
     public Account getAccountById(Integer id){return ada.getAccountById(id);}
     public int updateAccount(Account account){return ada.updateAccount(account);}
     public int deleteAccount(Integer id){return ada.deleteAccount(id);}
+    public XSSFWorkbook getTemplate() {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet();
+        XSSFRow row = sheet.createRow(0);
+        row.createCell(0).setCellValue("录入月份");
+        row.createCell(1).setCellValue("城市编码");
+        row.createCell(2).setCellValue("产品编码");
+        row.createCell(3).setCellValue("出账收入类型编码");
+        row.createCell(4).setCellValue("录入金额");
+        return workbook;
+    }
 }
