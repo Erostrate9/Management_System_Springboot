@@ -19,81 +19,81 @@
     <body>
         <div class="container" style="width: 400px;">
         <h3 style="text-align: center;">修改</h3>
-        <form action="Chuzhang.html">
+            <form th:object="${account}" method="post" th:action="@{/account/toChuzhangUpdate}" action="/account/toChuzhangUpdate">
           <tr>
-              <td valign="middle" align="right">
-                  序号：
-              </td>
               <td valign="middle" align="left">
                   <span text="id"/>
-                  <input type="hidden" th:value="id" name="id">
+                  <input type="hidden" th:field="*{id}"/>
               </td>
           </tr>
 
           <div class="form-group">
-                      <label for="cityCode">城市：</label>
-                      <select name="cityCode" class="form-control" id="cityCode">
-                          <option value="000">江西本部</option>
-                          <option value="740">江西景德镇</option>
-                          <option value="750">江西南昌</option>
-                          <option value="751">江西吉安</option>
-          				<option value="752">江西赣州</option>
-          				<option value="753">江西新余</option>
-          				<option value="754">江西鹰潭</option>
-          				<option value="755">江西九江</option>
-          				<option value="756">江西宜春</option>
-          				<option value="757">江西上饶</option>
-          				<option value="758">江西萍乡</option>
-          				<option value="759">江西抚州</option>
+              <label for="cityCode">城市：</label>
+              <select name="cityCode" th:field="*{cityCode}" class="form-control" id="cityCode">
+                  <option th:each="cityCode:${cityList}" th:text="${cityCode.cityName}" th:value="${cityCode.cityCode}">
+                          <!--                          <option value="000">江西本部</option>-->
+<!--                          <option value="740">江西景德镇</option>-->
+<!--                          <option value="750">江西南昌</option>-->
+<!--                          <option value="751">江西吉安</option>-->
+<!--          				<option value="752">江西赣州</option>-->
+<!--          				<option value="753">江西新余</option>-->
+<!--          				<option value="754">江西鹰潭</option>-->
+<!--          				<option value="755">江西九江</option>-->
+<!--          				<option value="756">江西宜春</option>-->
+<!--          				<option value="757">江西上饶</option>-->
+<!--          				<option value="758">江西萍乡</option>-->
+<!--          				<option value="759">江西抚州</option>-->
                       </select>
                   </div>
           
                   <div class="form-group">
                       <label for="productCode">产品：</label>
-                      <select name="productCode" class="form-control" id="productCode">
-                          <option value="110101">固话-基础业务-普通电话</option>
-                          <option value="110503">固话-基础业务-公用电话-公话超市电话</option>
-                          <option value="120502">固话-增值业务-800-国内</option>
-                          <option value="320113">卡类-IP卡-省内IP电话卡-200卡</option>
-          				<option value="320114">卡类-IP卡-省内IP电话卡-300卡</option>
-          				<option value="420201">数据业务-互联网接入服务-宽带接入-ADSL虚拟拨号</option>
-          				<option value="420301">数据业务-互联网接入服务-互联网普通专线接入</option>
-          				<option value="430101">数据业务-平台业务-IDC-主机托管</option>
+                      <select name="productCode" th:field="*{productCode}" class="form-control" id="productCode">
+                          <option th:each="productCode:${productCodeList}" th:text="${productCode.productName}" th:value="${productCode.productCode}">
+<!--                          <option value="110101">固话-基础业务-普通电话</option>-->
+<!--                          <option value="110503">固话-基础业务-公用电话-公话超市电话</option>-->
+<!--                          <option value="120502">固话-增值业务-800-国内</option>-->
+<!--                          <option value="320113">卡类-IP卡-省内IP电话卡-200卡</option>-->
+<!--          				<option value="320114">卡类-IP卡-省内IP电话卡-300卡</option>-->
+<!--          				<option value="420201">数据业务-互联网接入服务-宽带接入-ADSL虚拟拨号</option>-->
+<!--          				<option value="420301">数据业务-互联网接入服务-互联网普通专线接入</option>-->
+<!--          				<option value="430101">数据业务-平台业务-IDC-主机托管</option>-->
                       </select>
                   </div>
           		
           		<div class="form-group">
           		    <label for="accountFeeTypeCode">出账类型：</label>
-          		    <select name="accountFeeTypeCode" class="form-control" id="accountFeeTypeCode">
-          		        <option value="4001">主营业务收入-公众客户-月租费收入</option>
-          		        <option value="4002">主营业务收入-公众客户-本地区内通话费</option>
-          		        <option value="4003">主营业务收入-公众客户-本地区间通话费</option>
-          		        <option value="4004">主营业务收入-公众客户-本地拨号上网通信费</option>
-          				<option value="4005">主营业务收入-公众客户-国内长途通信费</option>
-          				<option value="4006">主营业务收入-公众客户-国际长途通信费</option>
-          				<option value="4007">主营业务收入-公众客户-港澳台长途通信费</option>
-          				<option value="4008">主营业务收入-公众客户-IP国内长途通信费</option>
-          				<option value="4009">主营业务收入-公众客户-IP国际长途通信费</option>
-          				<option value="4010">主营业务收入-公众客户-IP港澳台长途通信费</option>
-          				<option value="4011">主营业务收入-公众客户-装移机工料费收入</option>
-          				<option value="4012">主营业务收入-公众客户-开户费收入</option>
-          				<option value="4013">主营业务收入-公众客户-网络使用费</option>
-          				<option value="4014">主营业务收入-公众客户-一次性费用</option>
-          				<option value="4015">主营业务收入-公众客户-标准资费收入</option>
-          				<option value="4020">主营业务收入-公众客户-增值业务收入</option>
-          				<option value="4021">主营业务收入-公众客户-其他类收入</option>
-          				<option value="4022">主营业务收入-公众客户-折扣与折让</option>
+                    <select name="accountFeeTypeCode" th:field="*{typeCode}" class="form-control" id="accountFeeTypeCode">
+                        <option th:each="accountType:${accountTypeList}" th:text="${accountType.accountTypeName}" th:value="${accountType.accountTypeCode}">
+<!--          		        <option value="4001">主营业务收入-公众客户-月租费收入</option>-->
+<!--          		        <option value="4002">主营业务收入-公众客户-本地区内通话费</option>-->
+<!--          		        <option value="4003">主营业务收入-公众客户-本地区间通话费</option>-->
+<!--          		        <option value="4004">主营业务收入-公众客户-本地拨号上网通信费</option>-->
+<!--          				<option value="4005">主营业务收入-公众客户-国内长途通信费</option>-->
+<!--          				<option value="4006">主营业务收入-公众客户-国际长途通信费</option>-->
+<!--          				<option value="4007">主营业务收入-公众客户-港澳台长途通信费</option>-->
+<!--          				<option value="4008">主营业务收入-公众客户-IP国内长途通信费</option>-->
+<!--          				<option value="4009">主营业务收入-公众客户-IP国际长途通信费</option>-->
+<!--          				<option value="4010">主营业务收入-公众客户-IP港澳台长途通信费</option>-->
+<!--          				<option value="4011">主营业务收入-公众客户-装移机工料费收入</option>-->
+<!--          				<option value="4012">主营业务收入-公众客户-开户费收入</option>-->
+<!--          				<option value="4013">主营业务收入-公众客户-网络使用费</option>-->
+<!--          				<option value="4014">主营业务收入-公众客户-一次性费用</option>-->
+<!--          				<option value="4015">主营业务收入-公众客户-标准资费收入</option>-->
+<!--          				<option value="4020">主营业务收入-公众客户-增值业务收入</option>-->
+<!--          				<option value="4021">主营业务收入-公众客户-其他类收入</option>-->
+<!--          				<option value="4022">主营业务收入-公众客户-折扣与折让</option>-->
           		    </select>
           		</div>
           
           		<div class="form-group">
           			<label for="accountRecordMonth">录入月份</label>
-          			<input type="input" class="form-control" name="accountRecordMonth" id="accountRecordMonth" placeholder="date input">
+                    <input type="text" class="form-control" th:field="*{month}" name="accountRecordMonth" id="accountRecordMonth" placeholder="date input">
           		</div>
           
                   <div class="form-group">
                       <label for="accountFee">录入金额：</label>
-                      <input type="text" class="form-control" id="accountFee" name="accountFee" placeholder="请输入录入金额"/>
+                      <input type="text" class="form-control" th:field="*{fee}" id="accountFee" name="accountFee" placeholder="请输入录入金额"/>
                   </div>
 
 				  

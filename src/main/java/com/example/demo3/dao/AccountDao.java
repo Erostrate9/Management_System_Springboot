@@ -25,5 +25,6 @@ public interface AccountDao {
     //根据id查询一个Account
     public Account getAccountById(Integer id);
     public int updateAccount(Account account);
+    public int deleteAccount(Integer id);
 }
 

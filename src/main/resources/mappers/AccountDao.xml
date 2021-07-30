@@ -78,4 +78,9 @@
              `ACCOUN_FEE`=#{fee}
         WHERE id=#{id};
     </update>
+    <delete id="deleteAccount" parameterType="Integer">
+        DELETE FROM `rp_account_gather_t`
+        WHERE `id` = #{id}
+    </delete>
+
 </mapper>

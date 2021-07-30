@@ -37,4 +37,5 @@ public class AccountService {
     public int insertAccount(Account account){return ada.insertAccount(account);}
     public Account getAccountById(Integer id){return ada.getAccountById(id);}
     public int updateAccount(Account account){return ada.updateAccount(account);}
+    public int deleteAccount(Integer id){return ada.deleteAccount(id);}
 }

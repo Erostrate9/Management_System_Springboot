@@ -107,5 +107,67 @@ public class AccountController {
             System.out.println("重定向失败");
         }
     }
+    //删除
+    @GetMapping("toChuzhangDelete")
+    public void toChuzhangDelete(Integer id,Model model,HttpServletResponse response){
+        System.out.println("account.id:"+id);
+        if (id==null){
+            System.out.println("id doesn't exist");
+        }else{
+            int finishedDelNum = asi.deleteAccount(id);
+            System.out.println("Delete:"+finishedDelNum);
+        }
+//        当删除成功后，跳转到本controller的获取Account的方法中
+        //重定向
+        try {
+            response.sendRedirect("/account/toChuzhang");
+        }catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("重定向失败");
+        }
+    }
+    @GetMapping("toChuzhangUpdate")
+    public String toChuzhangUpdate(Integer id, Model model, Account account,HttpServletResponse response){
+        if (id==null||"".equals(id)){
+            //重定向
+            try {
+                response.sendRedirect("/account/toChuzhang");
+            }catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("重定向失败");
+            }
+        }else{
+            //修改
+            model.addAttribute("account",asi.getAccountById(id));
+        }
+        //获取集合数据
+        List<CityCode> cityList=asi.getCityCode();
+        List<ProductCode> productCodeList=asi.getProductCode();
+        List<AccountType> accountTypeList=asi.getAccountType();
+        model.addAttribute("cityList",cityList);
+        model.addAttribute("productCodeList",productCodeList);
+        model.addAttribute("accountTypeList",accountTypeList);
+        return "ChuzhangUpdate";
+    }
+    @PostMapping("toChuzhangUpdate")
+    public void toChuzhangUpdate1(Model model, Account account, HttpServletResponse response){
+        System.out.println("account.id:"+account.getId());
+        if (account.getId()==null|| "".equals(account.getId())){
+            //添加
+            int finishedInsertNum = asi.insertAccount(account);
+            System.out.println("Insert:"+finishedInsertNum);
+        }else{
+            int finishedInsertNum = asi.updateAccount(account);
+            System.out.println("update:"+finishedInsertNum);
+        }
+        //当插入或修改成功后，跳转到本controller的获取Account的方法中
+        //重定向
+        try {
+            response.sendRedirect("/account/toChuzhang");
+        }catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("重定向失败");
+        }
+    }
 
 }

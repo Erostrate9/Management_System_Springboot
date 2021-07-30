@@ -181,7 +181,7 @@
 						<div class="panel-body">
 							<table class="table table-bordered">
 								<tr>
-									<th><input type="checkbox"></th>
+									<th><input type="checkbox" id="cAll" onclick="checkAll()"></th>
 									<th>ID</th>
 									<th>月份</th>
 									<th>城市编号</th>
@@ -192,7 +192,7 @@
 									<th>操作</th>
 								</tr>
 								<tr th:each="account:${accountList}">
-									<td><input type="checkbox"></td>
+									<td><input type="checkbox" class="res"></td>
 									<td th:text="${account.id}"></td>
 									<td th:text="${account.month}"></td>
 									<td th:text="${account.cityCode}"></td>
@@ -203,7 +203,7 @@
 									<td>
 <!--										href="/account/toChuzhangUpdate" th:href="@{/account/toChuzhangUpdate}"-->
 										<a onclick="updateAccount(${account.id})" th:onclick="updateAccount([[${account.id}]])">修改</a>
-										<a href="#">删除</a>
+										<a onclick="deleteAccount(${account.id})" th:onclick="deleteAccount([[${account.id}]])">删除</a>
 									</td>
 
 								</tr>
@@ -222,7 +222,33 @@
 	<script src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
   	<script type="text/javascript">
 		function updateAccount(id){
-			window.location.href="http://localhost:8888/account/toChuzhangAdd?id="+id;
+			// window.location.href="http://localhost:8888/account/toChuzhangAdd?id="+id;
+			window.location.href="http://localhost:8888/account/toChuzhangUpdate?id="+id;
+		}
+		function deleteAccount(id){
+			window.location.href="http://localhost:8888/account/toChuzhangDelete?id="+id;
+		}
+		function checkAll(){
+			var btn=document.getElementById("cAll");
+			if (btn.checked==false){
+				//全选
+				// console.log("全选");
+				var res=document.getElementsByClassName("res");
+				for(var i  =0;i<res.length;i++){
+					var h = res[i];
+					h.checked = false;
+				}
+				// btn.checked=true;
+			}else{
+				//全不选
+				// console.log("全不选");
+				var res=document.getElementsByClassName("res");
+				for(var i  =0;i<res.length;i++){
+					var h = res[i];
+					h.checked = true;
+				}
+				// btn.checked=false;
+			}
 		}
 	</script>
   </body>
