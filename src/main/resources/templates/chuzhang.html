@@ -209,6 +209,43 @@
 								</tr>
 
 							</table>
+							<!--显示分页信息-->
+							<div class="modal-footer no-margin-top">
+								<div class="col-md-6">
+									当前第 [[${pageInfo.pageNum}]]页,共 [[${pageInfo.pages}]] 页.一共 [[${pageInfo.total}]] 条记录
+								</div>
+
+								<ul class="pagination pull-right no-margin">
+									<li th:if="${pageInfo.hasPreviousPage}">
+										<a th:href="'/account/toChuzhang?pageNum=1'">首页</a>
+									</li>
+
+									<li class="prev" th:if="${pageInfo.hasPreviousPage}">
+										<a th:href="'/account/toChuzhang?pageNum='+${pageInfo.prePage}">
+											<i class="ace-icon fa fa-angle-double-left"></i>
+										</a>
+									</li>
+									<!--遍历条数-->
+									<li th:each="nav:${pageInfo.navigatepageNums}">
+										<a th:href="'/account/toChuzhang?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+										<span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
+									</li>
+
+									<li class="next" th:if="${pageInfo.hasNextPage}">
+										<a th:href="'/account/toChuzhang?pageNum='+${pageInfo.nextPage}">
+											<i class="ace-icon fa fa-angle-double-right"></i>
+										</a>
+									</li>
+
+									<li>
+										<a th:href="'/account/toChuzhang?pageNum='+${pageInfo.pages}">尾页</a>
+									</li>
+								</ul>
+							</div>
+							<div>当前页号：<span th:text="${pageInfo.pageNum}"></span></div>
+							<div>每页条数：<span th:text="${pageInfo.pageSize}"></span></div>
+							<div>总结果数：<span th:text="${pageInfo.total}"></span></div>
+							<div>总页数：<span th:text="${pageInfo.pages}"></span></div>
 						</div>
 					</div>
 			</div>

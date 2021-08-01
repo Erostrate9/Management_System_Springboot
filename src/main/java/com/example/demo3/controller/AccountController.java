@@ -5,6 +5,8 @@ import com.example.demo3.entity.AccountType;
 import com.example.demo3.entity.CityCode;
 import com.example.demo3.entity.ProductCode;
 import com.example.demo3.service.AccountService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,33 +43,94 @@ public class AccountController {
     @GetMapping("toMain")
     public String tomain(){return "main";}
 
+    /**
+     *
+     * @param model 携带数据返回
+     * @param pageSize 一页显示多少条-非必传值
+     * @param pageNum 显示当前页--必传值
+     * @return 前端页面
+     * @Author: eros9
+     * @Date: 2021/8/1
+     */
+//分页查询数据
     @GetMapping("toChuzhang")
-    public String toChuzhang(Model model,Account account){
+    public String toChuzhang(Model model,Account account,@RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
+                             @RequestParam(defaultValue="5",value="pageSize")Integer pageSize){
         //获取集合数据
-        List<Account> list=asi.getAccount(account);
         List<CityCode> cityList=asi.getCityCode();
         List<ProductCode> productCodeList=asi.getProductCode();
         List<AccountType> accountTypeList=asi.getAccountType();
-        model.addAttribute("accountList",list);
         model.addAttribute("cityList",cityList);
         model.addAttribute("productCodeList",productCodeList);
         model.addAttribute("accountTypeList",accountTypeList);
         //往model中传入一个空的Account对象
         model.addAttribute("account",account==null?new Account():account);
+        //为了程序的严谨性，判断非空：
+        if(pageNum == null){
+            pageNum = 1;   //设置默认当前页
+        }
+        if(pageNum <= 0){
+            pageNum = 1;
+        }
+        if(pageSize == null){
+            pageSize = 5;    //设置默认每页显示的数据数
+        }
+        System.out.println("当前页是："+pageNum+"显示条数是："+pageSize);
+
+        //1.引入分页插件,pageNum是第几页，pageSize是每页显示多少条,默认查询总数count
+        PageHelper.startPage(pageNum,pageSize);
+        //2.紧跟的查询就是一个分页查询-必须紧跟.后面的其他查询不会被分页，除非再次调用PageHelper.startPage
+        try {
+            List<Account> list=asi.getAccount(account);
+            model.addAttribute("accountList",list);
+            System.out.println("分页数据："+list);
+            //3.使用PageInfo包装查询后的结果,5是连续显示的条数,结果list类型是Page<E>
+            PageInfo<Account> pageInfo = new PageInfo<Account>(list,pageSize);
+            //4.使用model/map/modelandview等带回前端
+            model.addAttribute("pageInfo",pageInfo);
+        }finally {
+            PageHelper.clearPage(); //清理 ThreadLocal 存储的分页参数,保证线程安全
+        }
+
         return "chuzhang";
     }
 
     @PostMapping("toChuzhang")
-    public String queryChuzhang(Model model,Account account){
+    public String queryChuzhang(Model model,Account account,@RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
+                                @RequestParam(defaultValue="5",value="pageSize")Integer pageSize){
         //获取集合数据
-        List<Account> list=asi.getAccount(account);
         List<CityCode> cityList=asi.getCityCode();
         List<ProductCode> productCodeList=asi.getProductCode();
         List<AccountType> accountTypeList=asi.getAccountType();
-        model.addAttribute("accountList",list);
         model.addAttribute("cityList",cityList);
         model.addAttribute("productCodeList",productCodeList);
         model.addAttribute("accountTypeList",accountTypeList);
+        //为了程序的严谨性，判断非空：
+        if(pageNum == null){
+            pageNum = 1;   //设置默认当前页
+        }
+        if(pageNum <= 0){
+            pageNum = 1;
+        }
+        if(pageSize == null){
+            pageSize = 5;    //设置默认每页显示的数据数
+        }
+        System.out.println("当前页是："+pageNum+"显示条数是："+pageSize);
+
+        //1.引入分页插件,pageNum是第几页，pageSize是每页显示多少条,默认查询总数count
+        PageHelper.startPage(pageNum,pageSize);
+        //2.紧跟的查询就是一个分页查询-必须紧跟.后面的其他查询不会被分页，除非再次调用PageHelper.startPage
+        try {
+            List<Account> list=asi.getAccount(account);
+            model.addAttribute("accountList",list);
+            System.out.println("分页数据："+list);
+            //3.使用PageInfo包装查询后的结果,5是连续显示的条数,结果list类型是Page<E>
+            PageInfo<Account> pageInfo = new PageInfo<Account>(list,pageSize);
+            //4.使用model/map/modelandview等带回前端
+            model.addAttribute("pageInfo",pageInfo);
+        }finally {
+            PageHelper.clearPage(); //清理 ThreadLocal 存储的分页参数,保证线程安全
+        }
         return "chuzhang";
     }
 
