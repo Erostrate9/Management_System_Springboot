@@ -272,8 +272,9 @@ public class AccountController {
     @PostMapping("/upload")
     public String uploadFile(@RequestParam("uploadFile") MultipartFile file, Model model, HttpServletResponse response) {
         if (file == null || file.getSize() == 0) {
+            System.out.println("文件不能为空");
             model.addAttribute("error_msg", "文件不能为空");
-            return "viewTemplates/error";//pass
+            return "error";//pass
         }
 
         //获取文件名称
@@ -282,8 +283,9 @@ public class AccountController {
         //判断文件类型
         String[] str = fileName.split("\\.");
         if (str.length != 2 || !str[1].equals("xlsx")) {
+            System.out.println("文件格式不正确");
             model.addAttribute("error_msg", "文件格式不正确");
-            return "viewTemplates/error";
+            return "error";
         }
         //转换成本地文件
         File excel = null;
@@ -291,21 +293,24 @@ public class AccountController {
             excel = File.createTempFile(str[0], str[1]);
             file.transferTo(excel);
         } catch (IOException e) {
+            System.out.println("转换文件发生错误！");
             model.addAttribute("error_msg", "转换文件发生错误！");
-            return "viewTemplates/error";
+            return "error";
         }
         try {
             List<Account> list = asi.parseExcel(excel);
             System.out.println(list.size());
             System.out.println(list.get(0).getCityCode());
             if (list == null || list.size() == 0) {
+                System.out.println("文件内容为空！");
                 model.addAttribute("error_msg", "文件内容为空！");
-                return "viewTemplates/error";
+                return "error";
             }
             asi.batchInsert(list);
         } catch (Exception e) {
+            System.out.println("导入文件发生错误！");
             model.addAttribute("error_msg", "导入文件发生错误！");
-            return "viewTemplates/error";
+            return "error";
         }
         //重定向
         return "redirect:/account/toChuzhang";
