@@ -1,8 +1,8 @@
-# 运行环境
+# Environment
 * java 11.0.8
 * mysql 5.7.11-log
-* 其他见maven pom
+* others are in 'maven pom'
 
-# 数据库管理工具
+# database management software
 * SQLyog-11.1.1-0.x86
 
